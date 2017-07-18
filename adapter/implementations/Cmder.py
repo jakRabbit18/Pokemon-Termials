@@ -7,18 +7,20 @@ class Cmder(TerminalAdapterInterface):
 
     @staticmethod
     def is_available():
+        print("Getting CMDER_ROOT")
         return os.environ.get("CMDER_ROOT") == '1'
 
     def set_image_file_path(self, image_file_path):
-        config = input("Please input abslute location of user-ConEmu: ")
-
-        tree = et.parse(config)
-        
-
-        raise NotImplementedError()
+        setBackground(image_file_path, True)
 
     def clear(self):
-        """
-        Clear the terminal's background image.
-        """
-        raise NotImplementedError()
+        setBackground("C:/back.bmp", False)
+
+    def setBackground(self, iamge_file_path, show):
+        config = input("Please input absolute path for user-ConEmu: ")
+
+        tree = et.parse(config)
+        for elem in tree.iterfind('key/key/value[@name="Background Image"]'):
+            elem.data.set(image_file_path)
+        for elem in tree.iterfind('key/key/value[@name="Background Image show"]'):
+            elem.data.set(show)
