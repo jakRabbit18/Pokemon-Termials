@@ -8,7 +8,7 @@ class Cmder(TerminalAdapterInterface):
     @staticmethod
     def is_available():
         print("Getting CMDER_ROOT")
-        return os.environ.get("CMDER_ROOT") == '1'
+        return os.environ.get("CMDER_ROOT") is not None
 
     def set_image_file_path(self, image_file_path):
         setBackground(image_file_path, True)
